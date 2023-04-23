@@ -1,35 +1,42 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
+#include <vector>
+#include <cassert>
 
 #include "Hyperbolic_solver.h"
 
-//enum fixed_var{POSITION, TIME};
+// Be careful with index management. Burden takes a notation from 0 to n and m, so the index must be from 0 or 1 to m+1 and n+1 given the case.
 
 HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float alpha, float end_point, float maxtime, const unsigned int x_mesh_size, const unsigned int t_mesh_size){
     alpha = alpha;
-    const unsigned int m = x_mesh_size;
-    const unsigned int n = t_mesh_size;
+    m = x_mesh_size;
+    n = t_mesh_size;
     l = end_point;
     T = maxtime;
-    std::vector <float> tiempos(n);
-    std::vector <float> posiciones(m);
+    // We cannot declare a vector with a defined size in the header file.
+    // It must be general and the constructor set the size. In this case, We fill with zeros.
+    tiempos = std::vector<float> (n+1, 0);
+    posiciones = std::vector<float> (m+1, 0);
 
-    w(std:: vector <float> (m), std::vector<float> (n));
+    w = std::vector<std::vector<float>> (m+1, std::vector<float> (n+1, 0));
 
     h = l/m;
     k = T/n;
     lambda = k * alpha/h;
 
     solve(f, g);
+    
 }
 
 
 void HyperbolicSolver::setInitialConditions(float (*f)(float), float (*g)(float)){
     /*This function prepares the initual conditions, that meaning that sets the fist column of the matrix w*/
+
     w.at(0).at(0) = f(0);
     w.at(m).at(0) = f(l);
 
+    // Why is it m-1 in Burden?
     for(int i = 1; i < m; i++){
         w.at(i).at(0) = f(i*h);
         w.at(i).at(1) = (1 - std::pow(lambda, 2)) * f(i*h) + std::pow(lambda, 2)/2 * (f((i + 1) * h) + f((i - 1) * h)) + k * g(i*h); 
@@ -39,6 +46,7 @@ void HyperbolicSolver::setInitialConditions(float (*f)(float), float (*g)(float)
 
 void HyperbolicSolver::matrixMultiplication(){
     /*This function performs the matrix multiplication for wij calculation*/
+
     for(int j = 1; j < n; j++){
         for(int i = 1; i < m; i++){
             w.at(i).at(j + 1) = 2 * (1 - std::pow(lambda, 2)) * w.at(i).at(j) + std::pow(lambda, 2) * (w.at(i + 1).at(j) + w.at(i - 1).at(j)) - w.at(i).at(j - 1);
@@ -49,10 +57,10 @@ void HyperbolicSolver::matrixMultiplication(){
 void HyperbolicSolver::solve(float (*f)(float), float (*g)(float)){
     setInitialConditions(f, g);
     matrixMultiplication();
-    for (int j = 0; j < n; j++){
+    for (int j = 0; j < n+1; j++){
         tiempos.at(j) = j*k;
 
-        for (int i = 0; i < m; i++){
+        for (int i = 0; i < m+1; i++){
             posiciones.at(i) =i*h;
         }
     }
@@ -109,14 +117,14 @@ void HyperbolicSolver::print_table(short int fix,float value_pos){
 
         std::cout << "Position fixed at: " << value_pos << std::endl;
         std::cout << "Time" << std::setw(15) << "W" << std::endl;
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n+1; i++){
             std::cout << tiempos.at(i) << std::setw(15) << w.at(value_pos).at(i) << std::endl;
         }
     }
     else if(fix == TIME){
         std::cout << "Time fixed at: " << value_pos << std::endl;
         std::cout << "Position" << std::setw(15) << "Value" << std::endl;
-        for(int i = 0; i < m; i++){
+        for(int i = 0; i < m+1; i++){
             std::cout << posiciones.at(i) << std::setw(15) << w.at(i).at(value_pos) << std::endl;
         }
     }

@@ -23,9 +23,9 @@ class HyperbolicSolver{
         std::vector <float> x;
         float lambda;
         float alpha;
-        static const unsigned int m;
-        static const unsigned int n;
-        std::vector <std::vector <float>> w;
+        unsigned int m;
+        unsigned int n;
+        std::vector <std::vector <float>> w; //(const unsigned int, std::vector<float>);
         float l;
         float T;
         float h;
