@@ -5,6 +5,7 @@
 #include <cassert>
 
 #include "Hyperbolic_solver.h"
+#include "colorcitos.h"
 
 // Be careful with index management. Burden takes a notation from 0 to n and m, so the index must be from 0 or 1 to m+1 and n+1 given the case.
 
@@ -108,24 +109,28 @@ void HyperbolicSolver::print_y0() const{
     std::cout << "y(l) = " << w.at(m).at(0)<< std::endl;
 }
 
-void HyperbolicSolver::print_table(short int fix,float value_pos) const{
+void HyperbolicSolver::print_table(short int fix, float value_pos) const{
     /*  This function prints the solution of the differential equation in a table format
         it can be chosen whether you want to fix a specific time or position
         value_pos indicates the index within the selected array */
     
     if(fix == POSITION){
 
-        std::cout << "Position fixed at: " << value_pos << std::endl;
-        std::cout << "Time" << std::setw(15) << "W" << std::endl;
+        std::cout << "Position fixed at: " << value_pos << std::endl << std::endl;
+        std::cout << std::setw(15) << std::left <<"Time" << std::setw(15) << std::left << "W" << std::endl;
+	std::cout << "----------------------------" << std::endl;
         for(int i = 0; i < n+1; i++){
-            std::cout << tiempos.at(i) << std::setw(15) << w.at(value_pos).at(i) << std::endl;
+            std::cout << std::setw(15) << std::setprecision(7) << std::fixed <<tiempos.at(i) << std::setw(15) << std::setprecision(7) << w.at(value_pos).at(i) << std::endl;
         }
     }
     else if(fix == TIME){
-        std::cout << "Time fixed at: " << value_pos << std::endl;
-        std::cout << "Position" << std::setw(15) << "Value" << std::endl;
+        std::cout << verdecito_chimbita << "Time fixed at: " << value_pos << std::endl << std::endl;
+	std::cout << reset;
+        std::cout << std::left << purple << std::setw(15) << "Position" << std::setw(15) << std::left << "W" << std::endl;
+	std::cout << "----------------------------" << std::endl;
+	std::cout << reset;
         for(int i = 0; i < m+1; i++){
-            std::cout << posiciones.at(i) << std::setw(15) << w.at(i).at(value_pos) << std::endl;
+            std::cout << std::setw(15) << std::setprecision(7) << std::fixed << std::left << posiciones.at(i) << std::setw(15) << w.at(i).at(value_pos) << std::endl;
         }
     }
     else{
