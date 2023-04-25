@@ -5,15 +5,15 @@ enum fixed_var{POSITION, TIME};
 class HyperbolicSolver{
     public:
         HyperbolicSolver(float (*)(float), float (*)(float),float, float, float, const unsigned int, const unsigned int);
-        std::vector <float> getTime();
-        std::vector <float> getPositions();
-        std::vector <std::vector <float>> getW();
-        void print_m();
-        void print_n();
-        void print_alpha();
-        void print_bounds();
-        void print_y0();
-        void print_table(short int, float);
+        std::vector <float> getTime() const;
+        std::vector <float> getPositions() const;
+        std::vector <std::vector <float>> getW() const;
+        void print_m() const;
+        void print_n() const;
+        void print_alpha() const;
+        void print_bounds() const;
+        void print_y0() const;
+        void print_table(short int, float) const;
     
     private:
         void solve(float (*)(float), float (*)(float));
