@@ -68,47 +68,47 @@ void HyperbolicSolver::solve(float (*f)(float), float (*g)(float)){
 
 // This set of functions return the solution of the differential equation 
 
-std::vector <float> HyperbolicSolver::getTime(){
+std::vector <float> HyperbolicSolver::getTime() const{
     return tiempos;
 }
 
-std::vector <float> HyperbolicSolver::getPositions(){
+std::vector <float> HyperbolicSolver::getPositions() const{
     return posiciones;
 }
 
-std::vector <std::vector <float>> HyperbolicSolver::getW(){
+std::vector <std::vector <float>> HyperbolicSolver::getW() const{
     return w;
 }
 
 // This set of functions print the parameters for the solution of the differential equation
 
-void HyperbolicSolver::print_m(){
+void HyperbolicSolver::print_m() const{
     std::cout << m << std::endl;
 }
 
-void HyperbolicSolver::print_n(){
+void HyperbolicSolver::print_n() const{
     std::cout << n << std::endl;
 }
 
-void HyperbolicSolver::print_alpha(){
+void HyperbolicSolver::print_alpha() const{
     std::cout << alpha << std::endl;
 }
 
-void HyperbolicSolver::print_bounds(){
+void HyperbolicSolver::print_bounds() const{
 
     std::cout << "Integration interval: "<< std::endl;
     std::cout << "x ∈ [0, " << l << "]" << std::endl;
     std::cout << "t ∈ [0, " << T << "]" << std::endl;
 }
 
-void HyperbolicSolver::print_y0(){
+void HyperbolicSolver::print_y0() const{
 
     std::cout << "Initial conditions: " << std::endl;
     std::cout << "y(0) = " << w.at(0).at(0) << std::endl;
     std::cout << "y(l) = " << w.at(m).at(0)<< std::endl;
 }
 
-void HyperbolicSolver::print_table(short int fix,float value_pos){
+void HyperbolicSolver::print_table(short int fix,float value_pos) const{
     /*  This function prints the solution of the differential equation in a table format
         it can be chosen whether you want to fix a specific time or position
         value_pos indicates the index within the selected array */
