@@ -40,28 +40,3 @@ class HyperbolicSolver{
         std::vector <float> posiciones;
 
 };
-
-class graphics{
-    public:
-        graphics(const HyperbolicSolver&);
-        void plot_slice(short int, float) const;
-        void plot_heatmap() const;
-
-    private:
-        const HyperbolicSolver& sol_object;
-};
-
-class ExactCompare{
-    public:
-        ExactCompare(const HyperbolicSolver&, const float (*)(float, float));
-        void print_comp_table(short int, float) const;
-        void calculateValues();
-
-    private:
-        const HyperbolicSolver& sol_object;
-        const float (*exact_solution)(float, float);
-        std::vector <float> tiempos;
-        std::vector <float> posiciones;
-	std::vector <std::vector <float>> aproximaciones;
-        std::vector <std::vector <float>> w;
-};
