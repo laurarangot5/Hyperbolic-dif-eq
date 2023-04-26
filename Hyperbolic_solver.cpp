@@ -9,10 +9,11 @@
 
 // Be careful with index management. Burden takes a notation from 0 to n and m, so the index must be from 0 or 1 to m+1 and n+1 given the case.
 
-HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float alpha, float end_point, float maxtime, const unsigned int x_mesh_size, const unsigned int t_mesh_size){
+HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float alpha, float end_point, 
+                                    float maxtime, const unsigned int x_mesh_size, const unsigned int t_mesh_size):
+                                    m(x_mesh_size), n(t_mesh_size)
+    {
     alpha = alpha;
-    m = x_mesh_size;
-    n = t_mesh_size;
     l = end_point;
     T = maxtime;
     // We cannot declare a vector with a defined size in the header file.
