@@ -1,6 +1,7 @@
-#include "Hyperbolic_solver.h"
 #include <cmath>
 #include <iostream>
+
+#include "Hyperbolic_solver.h"
 
 constexpr double pi = 3.14159265358979323846;
 
@@ -11,10 +12,13 @@ std::vector <std::vector <float>> solutions0;
 float f(float x){ return std::sin(x*pi);}
 float g(float x){ return 0;}
 
-float example0_sol(float x,float t){ return std::sin(x*pi)*std::cos(2*pi*t);}
+const float example0_sol(float x,float t){ return std::sin(x*pi)*std::cos(2*pi*t);}
+
+/* This file shows the functioning of all the interesting functions of the class*/
 
 int main(){
-    HyperbolicSolver  example0 ( f, g, 2, 1, 1, 10, 20);
+    const HyperbolicSolver example0 ( f, g, 2, 1, 1, 10, 20);
+    ExactCompare example0_exact (example0, example0_sol);
     //example0.print_table(POSITION, 4);
     //example0.print_table(TIME, 20);
 
@@ -34,7 +38,8 @@ int main(){
     solutions0 = example0.getW();
 
     std::cout << "Check of the numerical solution compared with the exact solution:\n";
-
+    example0_exact.print_comp_table(TIME, 20);
+    example0_exact.print_comp_table(POSITION, 4);
     return 0;
 }
 
