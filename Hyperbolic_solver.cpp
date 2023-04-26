@@ -110,6 +110,26 @@ void HyperbolicSolver::print_y0() const{
     std::cout << "y(l) = " << w.at(m).at(0)<< std::endl;
 }
 
+// This set of functions give the parameters for the solution of the differential equation
+int HyperbolicSolver::get_m() const{
+    return m;
+}
+int HyperbolicSolver::get_n() const{
+    return n;
+}
+
+float HyperbolicSolver::get_alpha() const{
+    return alpha;
+}
+
+float HyperbolicSolver::get_l() const{
+    return l;
+}
+
+float HyperbolicSolver::get_T() const{
+    return T;
+}
+
 void HyperbolicSolver::print_table(short int fix, float value_pos) const{
     /*  This function prints the solution of the differential equation in a table format
         it can be chosen whether you want to fix a specific time or position

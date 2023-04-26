@@ -9,6 +9,11 @@ class HyperbolicSolver{
         std::vector <float> getTime() const;
         std::vector <float> getPositions() const;
         std::vector <std::vector <float>> getW() const;
+        int get_m() const;
+        int get_n() const;
+        float get_alpha() const;
+        float get_l() const;
+        float get_T() const;
         void print_m() const;
         void print_n() const;
         void print_alpha() const;
@@ -44,4 +49,18 @@ class graphics{
 
     private:
         const HyperbolicSolver& sol_object;
+};
+
+class ExactCompare{
+    public:
+        ExactCompare(const HyperbolicSolver&, const float (*)(float, float));
+        void print_table(short int, float) const;
+        void calculateValues(short int, float);
+
+    private:
+        const HyperbolicSolver& sol_object;
+        const float (*exact_solution)(float, float);
+        std::vector <float> tiempos;
+        std::vector <float> posiciones;
+        std::vector <float> w;
 };
