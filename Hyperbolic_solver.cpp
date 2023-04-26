@@ -116,22 +116,22 @@ void HyperbolicSolver::print_table(short int fix, float value_pos) const{
     
     if(fix == POSITION){
 
-        std::cout << "Position fixed at: " << value_pos << std::endl << std::endl;
-        std::cout << std::setw(15) << std::left <<"Time" << std::setw(15) << std::left << "W" << std::endl;
+        std::cout << cyan << "Position fixed at (index): " << value_pos << std::endl << std::endl;
+        std::cout << std::left << purple << std::setw(15) << "Time" << std::setw(6) << std::left << "W(" << value_pos << ",j)" << std::endl;
 	std::cout << "----------------------------" << std::endl;
         for(int i = 0; i < n+1; i++){
             std::cout << std::setw(15) << std::setprecision(7) << std::fixed <<tiempos.at(i) << std::setw(15) << std::setprecision(7) << w.at(value_pos).at(i) << std::endl;
         }
     }
     else if(fix == TIME){
-        std::cout << verdecito_chimbita << "Time fixed at: " << value_pos << std::endl << std::endl;
-	std::cout << reset;
-        std::cout << std::left << purple << std::setw(15) << "Position" << std::setw(15) << std::left << "W" << std::endl;
+        std::cout << cyan << "Time fixed at (index): " << value_pos << std::endl << std::endl;
+        std::cout << std::left << purple << std::setw(15) << "Position" << std::setw(6) << std::left << "W(i," << value_pos << ")"<< std::endl;
 	std::cout << "----------------------------" << std::endl;
 	std::cout << reset;
         for(int i = 0; i < m+1; i++){
-            std::cout << std::setw(15) << std::setprecision(7) << std::fixed << std::left << posiciones.at(i) << std::setw(15) << w.at(i).at(value_pos) << std::endl;
-        }
+            std::cout << std::setw(15) << std::setprecision(7) << std::fixed << std::left << posiciones.at(i) << std::setw(15) << w.at(i).at(value_pos) << std::endl; 
+	}
+    }
     }
     else{
         std::cout << "Error: Invalid option" << std::endl;
