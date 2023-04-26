@@ -4,7 +4,7 @@
 #include <vector>
 #include <cassert>
 
-#include "Hyperbolic_solver.h"
+#include "HyperbolicSolver.h"
 #include "colorcitos.h"
 
 // Be careful with index management. Burden takes a notation from 0 to n and m, so the index must be from 0 or 1 to m+1 and n+1 given the case.

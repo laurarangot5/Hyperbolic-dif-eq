@@ -1,4 +1,4 @@
-#include "Hyperbolic_solver.h"
+#include "HyperbolicSolver.h"
 #include "matplotlibcpp.h"
 #include <vector>
 #include <iostream>
