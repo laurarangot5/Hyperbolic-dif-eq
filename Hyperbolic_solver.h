@@ -54,7 +54,7 @@ class graphics{
 class ExactCompare{
     public:
         ExactCompare(const HyperbolicSolver&, const float (*)(float, float));
-        void print_table(short int, float) const;
+        void print_comp_table(short int, float) const;
         void calculateValues(short int, float);
 
     private:
