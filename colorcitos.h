@@ -8,4 +8,4 @@ const std::string magenta("\033[1;35m");
 const std::string cyan("\033[1;36m");
 const std::string purple("\033[0;35m");
 const std::string reset("\033[0m");
-const std::string verdecito_chimbita("\033[1;48m");
+const std::string verdecito_chimbita("\033[38;5;48m");
