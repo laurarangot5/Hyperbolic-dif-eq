@@ -1,5 +1,5 @@
+#pragma once
 #include "HyperbolicSolver.h"
-
 class graphics{
     public:
         graphics(const HyperbolicSolver&);

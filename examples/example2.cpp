@@ -1,7 +1,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "Hyperbolic_solver.h"
+#include "HyperbolicSolver.h"
 
 constexpr double pi = 3.14159265358979323846;
 

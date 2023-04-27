@@ -1,7 +1,7 @@
-#include "HyperbolicSolver.h"
-#include "matplotlibcpp.h"
+#include "graphics.h"
 #include <vector>
 #include <iostream>
+#include "matplotlibcpp.h"
 
 namespace plt = matplotlibcpp;
 

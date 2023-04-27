@@ -2,7 +2,6 @@
 #include <iomanip>
 
 #include "colorcitos.h"
-#include "HyperbolicSolver.h"
 #include "ExactCompare.h"
 
 ExactCompare::ExactCompare(const HyperbolicSolver& Obj_sol, const float (*exact_solution)(float, float)): sol_object(Obj_sol), exact_solution(exact_solution) {
