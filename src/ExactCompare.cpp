@@ -73,3 +73,14 @@ void ExactCompare::print_comp_table(short int fix, float value_pos) const{
     
 }
 
+std::vector <float> ExactCompare::getTime() const{
+    return tiempos;    
+}
+
+std::vector <float> ExactCompare::getPositions() const{
+    return posiciones;
+}
+std::vector <std::vector <float>> ExactCompare::getW() const{
+    return w;
+}
+
