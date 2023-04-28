@@ -3,6 +3,7 @@
 
 #include "HyperbolicSolver.h"
 #include "ExactCompare.h"
+#include "graphics.h"
 
 constexpr double pi = 3.14159265358979323846;
 
@@ -20,6 +21,7 @@ const float example0_sol(float x,float t){ return std::sin(x*pi)*std::cos(2*pi*t
 int main(){
     const HyperbolicSolver example0 ( f, g, 2, 1, 1, 10, 20);
     ExactCompare example0_exact (example0, example0_sol);
+    graphics example0_graph (example0);
     //example0.print_table(POSITION, 4);
     //example0.print_table(TIME, 20);
 
@@ -41,6 +43,8 @@ int main(){
     std::cout << "Check of the numerical solution compared with the exact solution:\n";
     example0_exact.print_comp_table(TIME, 20);
     example0_exact.print_comp_table(POSITION, 4);
+
+    example0_graph.plot_slice(POSITION, 4);
     return 0;
 }
 
