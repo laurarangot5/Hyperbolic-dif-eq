@@ -18,17 +18,22 @@ void graphics::plot_slice(short int fix, float value_pos) const{
         For the rows value_pos < m+1 and for the columns value_pos < n+1
     */
 
-    int n = sol_object.get_n();
-    int m = sol_object.get_m();
+
+    //int n = sol_object.get_n();
+    //int m = sol_object.get_m();
 
     std::vector <float> time = sol_object.getTime();
     std::vector <float> pos = sol_object.getPositions();
+
+    const int m = pos.size() - 1;
+
     if (fix == POSITION){
         
         std::vector <std::vector <float>> w = sol_object.getW();
         std::vector <float> W;
         std::vector <float> t;
 
+        // Extracts a column of the matrix W corresponding to the fixed position
         for(int i = 0; i < m+1; i++){
                 W.push_back(w.at(i).at(value_pos));
                 t.push_back(time.at(i));
@@ -54,6 +59,7 @@ void graphics::plot_slice(short int fix, float value_pos) const{
         plt::plot(pos, W);
         plt::title("Solution of the differential equation for the fixed time "+std::to_string(time.at(value_pos)));
         plt::xlabel("Position");
+        // Consider using sstream
         plt::ylabel("W (i,"+std::to_string(time.at(value_pos))+")");
         plt::show();
         
