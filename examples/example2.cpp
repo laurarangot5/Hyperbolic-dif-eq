@@ -23,6 +23,7 @@ int main(){
     example2.print_y0();
 
     example2.print_table(TIME, 200);
+    example2_graphics.plot_slice(TIME, 200);
     example2_graphics.plot_heatmap();
     return 0;
 }

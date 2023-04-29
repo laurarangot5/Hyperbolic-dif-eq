@@ -41,10 +41,15 @@ int main(){
     solutions0 = example0.getW();
 
     std::cout << "Check of the numerical solution compared with the exact solution:\n";
-    example0_exact.print_comp_table(TIME, 20);
+//  example0_exact.print_comp_table(TIME, 10);
     example0_exact.print_comp_table(POSITION, 4);
 
-    example0_graph.plot_slice(POSITION, 4);
+//  example0_graph.plot_slice(POSITION, 4);
+//  example0_graph.plot_slice(example0_exact, POSITION, 4);
+    example0_graph.plot_heatmap();
+    example0_graph.plot_heatmap(example0_exact);
+
+
     return 0;
 }
 
