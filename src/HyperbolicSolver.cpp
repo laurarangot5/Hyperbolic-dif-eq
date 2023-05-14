@@ -33,7 +33,7 @@ HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float a
 
 
 void HyperbolicSolver::setInitialConditions(float (*f)(float), float (*g)(float)){
-    /*This function prepares the initual conditions, that meaning that sets the fist column of the matrix w*/
+    /*This function prepares the initial conditions, meaning it sets the first column of the matrix w*/
 
     w.at(0).at(0) = f(0);
     w.at(m).at(0) = f(l);
@@ -85,15 +85,15 @@ std::vector <std::vector <float>> HyperbolicSolver::getW() const{
 // This set of functions print the parameters for the solution of the differential equation
 
 void HyperbolicSolver::print_m() const{
-    std::cout << m << std::endl;
+    std::cout << "x divisions "<< m << std::endl;
 }
 
 void HyperbolicSolver::print_n() const{
-    std::cout << n << std::endl;
+    std::cout << "t divisions" << n << std::endl;
 }
 
 void HyperbolicSolver::print_alpha() const{
-    std::cout << alpha << std::endl;
+    std::cout << "alpha" << alpha << std::endl;
 }
 
 void HyperbolicSolver::print_bounds() const{
@@ -108,6 +108,18 @@ void HyperbolicSolver::print_y0() const{
     std::cout << "Initial conditions: " << std::endl;
     std::cout << "y(0) = " << w.at(0).at(0) << std::endl;
     std::cout << "y(l) = " << w.at(m).at(0)<< std::endl;
+}
+
+void HyperbolicSolver::info() const{
+   print_m();
+   print_n();
+   print_alpha();
+
+   std::cout << std::endl;
+   print_y0();
+   std::cout << std::endl;
+   print_bounds();
+}
 }
 
 // This set of functions give the parameters for the solution of the differential equation
