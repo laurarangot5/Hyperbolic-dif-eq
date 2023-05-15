@@ -13,7 +13,7 @@ HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float a
                                     float maxtime, const unsigned int x_mesh_size, const unsigned int t_mesh_size):
                                     m(x_mesh_size), n(t_mesh_size)
     {
-    alpha = alpha;
+    this->alpha = alpha;
     l = end_point;
     T = maxtime;
     // We cannot declare a vector with a defined size in the header file.
@@ -89,11 +89,11 @@ void HyperbolicSolver::print_m() const{
 }
 
 void HyperbolicSolver::print_n() const{
-    std::cout << "t divisions" << n << std::endl;
+    std::cout << "t divisions " << n << std::endl;
 }
 
 void HyperbolicSolver::print_alpha() const{
-    std::cout << "alpha" << alpha << std::endl;
+    std::cout << "alpha " << this->alpha << std::endl;
 }
 
 void HyperbolicSolver::print_bounds() const{
@@ -119,7 +119,6 @@ void HyperbolicSolver::info() const{
    print_y0();
    std::cout << std::endl;
    print_bounds();
-}
 }
 
 // This set of functions give the parameters for the solution of the differential equation

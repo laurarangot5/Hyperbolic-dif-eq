@@ -15,8 +15,8 @@ int main(){
     example0.print_table(TIME, 20);
 
     graphics example0_graph (example0);
-    //example0_graph.plot_slice(POSITION, 4);
-    //example0_graph.plot_slice(TIME, 2);
+    example0_graph.plot_slice(POSITION, 4);
+    example0_graph.plot_slice(TIME, 2);
     example0_graph.plot_heatmap();
 
     return 0;

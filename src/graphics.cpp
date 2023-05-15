@@ -1,6 +1,8 @@
 #include <vector>
 #include <iostream>
+#include <iomanip>
 #include <cmath>
+#include <sstream>
 
 #include "graphics.h"
 #include "matplotlibcpp.h"
@@ -10,7 +12,7 @@ namespace plt = matplotlibcpp;
 
 graphics::graphics(const HyperbolicSolver& sol_object): 
                                 sol_object(sol_object){
-                  plt::backend("TkAgg");
+                  //plt::backend("TkAgg");
                                 }
 
 void graphics::plot_slice(short int fix, float value_pos) const{
@@ -19,9 +21,6 @@ void graphics::plot_slice(short int fix, float value_pos) const{
         For the rows value_pos < m+1 and for the columns value_pos < n+1
     */
 
-
-    //int n = sol_object.get_n();
-    //int m = sol_object.get_m();
 
     std::vector <float> Time = sol_object.getTime();
     std::vector <float> pos = sol_object.getPositions();
@@ -42,10 +41,20 @@ void graphics::plot_slice(short int fix, float value_pos) const{
                 
         }
 
-        plt::plot(Time, W);
-        plt::title("Solution of the differential equation at a the fixed position "+std::to_string(pos.at(value_pos)));
+        plt::plot(Time, W,{{"marker","o"}});
+
+        std::ostringstream titleStream;
+
+        titleStream << "Solution of the differential equation for the fixed position ";
+        titleStream << std::setprecision(3) << pos.at(value_pos);
+        plt::title(titleStream.str());
+
         plt::xlabel("Time");
-        plt::ylabel("W ("+std::to_string(pos.at(value_pos))+",j)");
+
+        std::ostringstream ylabelStream;
+        ylabelStream << "W (" << std::setprecision(3) << pos.at(value_pos) << ",j)";
+        plt::ylabel(ylabelStream.str());
+      
         plt::show();
     }
 
@@ -59,11 +68,20 @@ void graphics::plot_slice(short int fix, float value_pos) const{
             W.push_back(w.at(i).at(value_pos));}
         
 
-        plt::plot(pos, W);
-        plt::title("Solution of the differential equation for the fixed time "+std::to_string(Time.at(value_pos)));
+        plt::plot(pos, W,{{"marker","o"}});
+
+        std::ostringstream titleStream;
+
+        titleStream << "Solution of the differential equation for the fixed time ";
+        titleStream << std::setprecision(3) << Time.at(value_pos);
+        plt::title(titleStream.str());
+
         plt::xlabel("Position");
-        // Consider using sstream
-        plt::ylabel("W (i,"+std::to_string(Time.at(value_pos))+")");
+
+        std::ostringstream ylabelStream;
+        ylabelStream << "W (i," << std::setprecision(3) << Time.at(value_pos) << ")";
+        plt::ylabel(ylabelStream.str());
+
         plt::show();
         
     }
@@ -118,10 +136,15 @@ void graphics::plot_heatmap() const{
     plt::xticks(*timeTicksPtr, tlabels);
     plt::yticks(*posTicksPtr, xlabels);
 
+    //we add a title
+    plt::title("Heatmap of the solution of the differential equation");
+    plt::xlabel("Time");
+    plt::ylabel("Position");
 
     //we add a colorbar
     plt::colorbar();
     plt::show();
+  
 
     // Delete the pointers.
     // Not really necessary. Not that memory demanding
@@ -157,18 +180,30 @@ void graphics::plot_slice(const ExactCompare& compare_object, short int fix, flo
                 W_exact->push_back(w_exact.at(value_pos).at(i));
         }
 
-
-        plt::plot(Time, *W);
-        plt::plot(Time, *W_exact);
+  
+      for(int j=0; j < Time.size(); j++){
+        W_exact->at(j) = W_exact->at(j)- W->at(j); 
+      }
+        plt::plot(Time, *W_exact,{{"marker","o"}});
+        //plt::plot(Time, *W_exact,{{"marker","o"}});
 
         delete W;
         delete W_exact;
         W = NULL;
         W_exact = NULL;
 
-        plt::title("Solution of the differential equation at a the fixed position "+std::to_string(pos.at(value_pos)));
+        std::ostringstream titleStream;
+        titleStream << "Difference between the exact and "<<std::endl;
+        titleStream<< " aproximate solution for the fixed position ";
+        titleStream << std::setprecision(3) << pos.at(value_pos);
+        plt::title(titleStream.str());
+        
         plt::xlabel("Time");
-        plt::ylabel("W ("+std::to_string(pos.at(value_pos))+",j)");
+
+        std::ostringstream ylabelStream;
+        ylabelStream << "W (" << std::setprecision(3) << pos.at(value_pos) << ",j)";
+        plt::ylabel(ylabelStream.str());
+  
         plt::show();
     }
 
@@ -181,18 +216,30 @@ void graphics::plot_slice(const ExactCompare& compare_object, short int fix, flo
             W_exact->push_back(w_exact.at(i).at(value_pos));
     }
 
-        plt::plot(pos, *W);
-        plt::plot(pos, *W_exact);
+        for(int i=0; i < pos.size(); i++){
+        W_exact->at(i) = W_exact->at(i)- W->at(i); 
+        }
+      
+        plt::plot(pos, *W_exact,{{"marker","o"}});
+        //plt::plot(pos, *W_exact,{{"marker","o"}});
 
         delete W;
         delete W_exact;
         W = NULL;
         W_exact = NULL;
 
-        plt::title("Solution of the differential equation for the fixed time "+std::to_string(Time.at(value_pos)));
+        std::ostringstream titleStream;
+        titleStream << "Difference between the exact and aproximate solution for the fixed time ";
+        titleStream << std::setprecision(3) << Time.at(value_pos);
+        plt::title(titleStream.str());
+
+      
         plt::xlabel("Position");
-        // Consider using sstream
-        plt::ylabel("W (i,"+std::to_string(Time.at(value_pos))+")");
+
+        std::ostringstream ylabelStream;
+        ylabelStream << "W (i," << std::setprecision(3) << Time.at(value_pos) << ")";
+        plt::ylabel(ylabelStream.str());
+
         plt::show();
         
     }
@@ -222,6 +269,10 @@ void graphics::plot_heatmap(const ExactCompare& compare_object) const{
     plt::figure_size(1200, 780);
     plt::imshow(*w_exact, {{"cmap","PRGn"}});
 
+      //we add a title
+    plt::title("Heatmap of the difference between the approximate and the exact solutions");
+    plt::xlabel("Time");
+    plt::ylabel("Position");
 
     delete w_exact;
     w_exact = NULL;
