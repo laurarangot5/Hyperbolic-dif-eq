@@ -24,10 +24,11 @@ class HyperbolicSolver{
         void print_alpha() const;
         void print_bounds() const;
         void print_y0() const;
-	void info() const;
+	      void info() const;
 
         void print_table(short int, float) const;
     
+        void savedata(std::string) const;
     private:
         // Solve functions
         void solve(float (*)(float), float (*)(float));

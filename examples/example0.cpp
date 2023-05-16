@@ -37,6 +37,8 @@ int main(){
     example0_exact.print_comp_table(TIME, 10);
     example0_exact.print_comp_table(POSITION, 4);
 
+    example0.savedata("./data/example0.csv");
+
     example0_graph.plot_slice(POSITION, 4);
     example0_graph.plot_slice(example0_exact, POSITION, 4);
     example0_graph.plot_heatmap();

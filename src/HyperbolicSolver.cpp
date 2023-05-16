@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 #include <vector>
 #include <cassert>
@@ -38,7 +39,6 @@ void HyperbolicSolver::setInitialConditions(float (*f)(float), float (*g)(float)
     w.at(0).at(0) = f(0);
     w.at(m).at(0) = f(l);
 
-    // Why is it m-1 in Burden?
     for(int i = 1; i < m; i++){
         w.at(i).at(0) = f(i*h);
         w.at(i).at(1) = (1 - std::pow(lambda, 2)) * f(i*h) + std::pow(lambda, 2)/2 * (f((i + 1) * h) + f((i - 1) * h)) + k * g(i*h); 
@@ -187,5 +187,18 @@ void HyperbolicSolver::print_table(short int fix, float value_pos) const{
 
 }
 
+void HyperbolicSolver::savedata(std::string _path) const{
+  std::ofstream outfile(_path);
 
+  for(int i = 0; i < get_m(); i++){
+    for(int j = 0; j < get_n(); j++){
+      outfile << std::setprecision(7) << std::fixed << getW().at(i).at(j);
+      if(j == get_n()-1){
+        outfile << std::endl;
+      }
+      else outfile << ",";
+    }
+  }
+
+}
 

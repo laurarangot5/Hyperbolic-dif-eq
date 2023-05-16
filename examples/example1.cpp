@@ -30,6 +30,8 @@ int main(){
     position0 = example1.getPositions();
     solutions0 = example1.getW();
 
+    example1.savedata("./data/example1.csv");
+
     std::cout << "Check of the numerical solution compared with the exact solution:\n";
     example1_exact.print_comp_table(TIME, 20);
     example1_exact.print_comp_table(POSITION, 4);
