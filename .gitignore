@@ -3,3 +3,6 @@
 *.d
 .vscode/
 bin/
+data/
+makefile
+Presentación/
