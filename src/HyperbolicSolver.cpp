@@ -10,7 +10,7 @@
 
 // Be careful with index management. Burden takes a notation from 0 to n and m, so the index must be from 0 or 1 to m+1 and n+1 given the case.
 
-HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float alpha, float end_point, 
+HyperbolicSolver::HyperbolicSolver(double (*f)(double), double (*g)(double), float alpha, float end_point, 
                                     float maxtime, const unsigned int x_mesh_size, const unsigned int t_mesh_size):
                                     m(x_mesh_size), n(t_mesh_size)
     {
@@ -19,10 +19,10 @@ HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float a
     T = maxtime;
     // We cannot declare a vector with a defined size in the header file.
     // It must be general and the constructor set the size. In this case, We fill with zeros.
-    tiempos = std::vector<float> (n+1, 0);
-    posiciones = std::vector<float> (m+1, 0);
+    tiempos = std::vector<double> (n+1, 0);
+    posiciones = std::vector<double> (m+1, 0);
 
-    w = std::vector<std::vector<float>> (m+1, std::vector<float> (n+1, 0));
+    w = std::vector<std::vector<double>> (m+1, std::vector<double> (n+1, 0));
 
     h = l/m;
     k = T/n;
@@ -33,7 +33,7 @@ HyperbolicSolver::HyperbolicSolver(float (*f)(float), float (*g)(float), float a
 }
 
 
-void HyperbolicSolver::setInitialConditions(float (*f)(float), float (*g)(float)){
+void HyperbolicSolver::setInitialConditions(double (*f)(double), double (*g)(double)){
     /*This function prepares the initial conditions, meaning it sets the first column of the matrix w*/
 
     w.at(0).at(0) = f(0);
@@ -56,7 +56,7 @@ void HyperbolicSolver::matrixMultiplication(){
     }
 }
 
-void HyperbolicSolver::solve(float (*f)(float), float (*g)(float)){
+void HyperbolicSolver::solve(double (*f)(double), double (*g)(double)){
     setInitialConditions(f, g);
     matrixMultiplication();
     for (int j = 0; j < n+1; j++){
@@ -70,15 +70,15 @@ void HyperbolicSolver::solve(float (*f)(float), float (*g)(float)){
 
 // This set of functions return the solution of the differential equation 
 
-std::vector <float> HyperbolicSolver::getTime() const{
+std::vector <double> HyperbolicSolver::getTime() const{
     return tiempos;
 }
 
-std::vector <float> HyperbolicSolver::getPositions() const{
+std::vector <double> HyperbolicSolver::getPositions() const{
     return posiciones;
 }
 
-std::vector <std::vector <float>> HyperbolicSolver::getW() const{
+std::vector <std::vector <double>> HyperbolicSolver::getW() const{
     return w;
 }
 
@@ -150,12 +150,12 @@ void HyperbolicSolver::print_table(short int fix, float value_pos) const{
 
         std::cout << verdecito_chimbita << "Position fixed at: " << std::endl;
         std::cout << "Index: " << std::defaultfloat << value_pos << std::endl;
-        std::cout << "Position: " << std::setprecision(7) << std::fixed << posiciones.at(value_pos) << std::endl << std::endl;
-        std::cout << std::left << purple << std::setw(15) << "Time" << std::setw(2) << std::left << "W(" << std::defaultfloat << value_pos << ",j)" << std::endl;
+        std::cout << "Position: " << std::setprecision(10) << std::fixed << posiciones.at(value_pos) << std::endl << std::endl;
+        std::cout << std::left << purple << std::setw(18) << "Time" << std::setw(2) << std::left << "W(" << std::defaultfloat << value_pos << ",j)" << std::endl;
 	    std::cout << "----------------------------" << std::endl;
         std::cout << reset;
         for(int i = 0; i < n+1; i++){
-            std::cout << std::setw(15) << std::setprecision(7) << std::fixed << tiempos.at(i) << std::setw(15) << std::setprecision(7) << w.at(value_pos).at(i) << std::endl;
+            std::cout << std::setw(18) << std::setprecision(10) << std::fixed << tiempos.at(i) << std::setw(18) << std::setprecision(10) << w.at(value_pos).at(i) << std::endl;
         }
 	    std::cout << purple << "----------------------------" << std::endl;
         std::cout << reset;
@@ -167,12 +167,12 @@ void HyperbolicSolver::print_table(short int fix, float value_pos) const{
     else if(fix == TIME){
         std::cout << verdecito_chimbita << "Time fixed at: " << std::endl;
         std::cout << "Index: " << std::defaultfloat << value_pos << std::endl;
-        std::cout << "Time: " << std::setprecision(7) << std::fixed << tiempos.at(value_pos) << std::endl << std::endl;
-        std::cout << std::left << purple << std::setw(15) << "Position" << std::setw(2) << std::left << "W(i," << std::defaultfloat << value_pos << ")"<< std::endl;
+        std::cout << "Time: " << std::setprecision(10) << std::fixed << tiempos.at(value_pos) << std::endl << std::endl;
+        std::cout << std::left << purple << std::setw(18) << "Position" << std::setw(2) << std::left << "W(i," << std::defaultfloat << value_pos << ")"<< std::endl;
 	    std::cout << "----------------------------" << std::endl;
 	    std::cout << reset;
         for(int i = 0; i < m+1; i++){
-            std::cout << std::setw(15) << std::setprecision(7) << std::fixed << std::left << posiciones.at(i) << std::setw(15) << w.at(i).at(value_pos) << std::endl; 
+            std::cout << std::setw(18) << std::setprecision(10) << std::fixed << std::left << posiciones.at(i) << std::setw(18) << w.at(i).at(value_pos) << std::endl; 
 	}
         std::cout << std::endl;
 	    std::cout << purple << "----------------------------" << std::endl;

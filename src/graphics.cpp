@@ -22,8 +22,8 @@ void graphics::plot_slice(short int fix, float value_pos) const{
     */
 
 
-    std::vector <float> Time = sol_object.getTime();
-    std::vector <float> pos = sol_object.getPositions();
+    std::vector <double> Time = sol_object.getTime();
+    std::vector <double> pos = sol_object.getPositions();
 
     const int m = pos.size() - 1;
     const int n = Time.size() - 1;
@@ -32,8 +32,8 @@ void graphics::plot_slice(short int fix, float value_pos) const{
 
         //the fixed poition index must be smaller than m
         
-        std::vector <std::vector <float>> w = sol_object.getW();
-        std::vector <float> W;
+        std::vector <std::vector <double>> w = sol_object.getW();
+        std::vector <double> W;
 
         // Extracts a column of the matrix W corresponding to the fixed position
         for(int i = 0; i < n+1; i++){
@@ -61,8 +61,8 @@ void graphics::plot_slice(short int fix, float value_pos) const{
     else if (fix == TIME){
 
         //the fixed time index must be smaller than n
-        std::vector <std::vector <float>> w = sol_object.getW();
-        std::vector <float> W;
+        std::vector <std::vector <double>> w = sol_object.getW();
+        std::vector <double> W;
 
         for(int i = 0; i < m+1; i++){
             W.push_back(w.at(i).at(value_pos));}
@@ -90,9 +90,9 @@ void graphics::plot_slice(short int fix, float value_pos) const{
 void graphics::plot_heatmap() const{
     /*  This function plots the matrix W as a heatmap
     */
-    std::vector <std::vector <float>> w = sol_object.getW();
-    std::vector <float> Time = sol_object.getTime();
-    std::vector <float> pos = sol_object.getPositions();
+    std::vector <std::vector <double>> w = sol_object.getW();
+    std::vector <double> Time = sol_object.getTime();
+    std::vector <double> pos = sol_object.getPositions();
 
 
     //we plot the matrix W as a heatmap
@@ -159,16 +159,16 @@ void graphics::plot_slice(const ExactCompare& compare_object, short int fix, flo
         For the rows value_pos < m+1 and for the columns value_pos < n+1
     */
 
-    std::vector <float> Time = sol_object.getTime();
-    std::vector <float> pos = sol_object.getPositions();
+    std::vector <double> Time = sol_object.getTime();
+    std::vector <double> pos = sol_object.getPositions();
 
     const int m = pos.size() - 1;
     const int n = Time.size() - 1;
     
-    std::vector <std::vector <float>> w = sol_object.getW();
-    std::vector <std::vector <float>> w_exact = compare_object.getW();
-    std::vector <float> *W = new std::vector <float>();
-    std::vector <float> *W_exact = new std::vector <float>();
+    std::vector <std::vector <double>> w = sol_object.getW();
+    std::vector <std::vector <double>> w_exact = compare_object.getW();
+    std::vector <double> *W = new std::vector <double>();
+    std::vector <double> *W_exact = new std::vector <double>();
 
     if (fix == POSITION){
 
@@ -248,11 +248,11 @@ void graphics::plot_slice(const ExactCompare& compare_object, short int fix, flo
 void graphics::plot_heatmap(const ExactCompare& compare_object) const{
     /*  This function plots the difference between the matrix W and the exact solution as a heatmap
     */
-    std::vector <std::vector <float>> w = sol_object.getW();
-    std::vector <std::vector <float>> *w_exact = new std::vector <std::vector <float>> (compare_object.getW());
+    std::vector <std::vector <double>> w = sol_object.getW();
+    std::vector <std::vector <double>> *w_exact = new std::vector <std::vector <double>> (compare_object.getW());
 
-    std::vector <float> Time = sol_object.getTime();
-    std::vector <float> pos = sol_object.getPositions();
+    std::vector <double> Time = sol_object.getTime();
+    std::vector <double> pos = sol_object.getPositions();
 
     for(int i = 0; i < pos.size(); i++){
       for(int j=0; j < Time.size(); j++){

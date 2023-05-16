@@ -3,21 +3,21 @@
 
 class ExactCompare{
     public:
-        ExactCompare(const HyperbolicSolver&, const float (*)(float, float));
+        ExactCompare(const HyperbolicSolver&, const double (*)(double, double));
         void print_comp_table(short int, float) const;
         void calculateValues();
 
-        std::vector <float> getTime() const;
-        std::vector <float> getPositions() const;
-        std::vector <std::vector <float>> getW() const;
+        std::vector <double> getTime() const;
+        std::vector <double> getPositions() const;
+        std::vector <std::vector <double>> getW() const;
 
 
     private:
         const HyperbolicSolver& sol_object;
-        const float (*exact_solution)(float, float);
-        std::vector <float> tiempos;
-        std::vector <float> posiciones;
-	    std::vector <std::vector <float>> aproximaciones;
-        std::vector <std::vector <float>> w;
+        const double (*exact_solution)(double, double);
+        std::vector <double> tiempos;
+        std::vector <double> posiciones;
+	    std::vector <std::vector <double>> aproximaciones;
+        std::vector <std::vector <double>> w;
 };
 

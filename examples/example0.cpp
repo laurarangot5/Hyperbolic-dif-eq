@@ -7,14 +7,14 @@
 
 constexpr double pi = 3.14159265358979323846;
 
-std::vector <float> time0;
-std::vector <float> position0;
-std::vector <std::vector <float>> solutions0;
+std::vector <double> time0;
+std::vector <double> position0;
+std::vector <std::vector <double>> solutions0;
 
-float f(float x){ return std::sin(x*pi);}
-float g(float x){ return 0;}
+double f(double x){ return std::sin(x*pi);}
+double g(double x){ return 0;}
 
-const float example0_sol(float x,float t){ return std::sin(x*pi)*std::cos(2*pi*t);}
+const double example0_sol(double x,double t){ return std::sin(x*pi)*std::cos(2*pi*t);}
 
 /* This file shows the functioning of all the interesting functions of the class*/
 

@@ -5,11 +5,11 @@ enum fixed_var{POSITION, TIME};
 
 class HyperbolicSolver{
     public:
-        HyperbolicSolver(float (*)(float), float (*)(float),float, float, float, const unsigned int, const unsigned int);
+        HyperbolicSolver(double (*)(double), double(*)(double),float, float, float, const unsigned int, const unsigned int);
 
-        std::vector <float> getTime() const;
-        std::vector <float> getPositions() const;
-        std::vector <std::vector <float>> getW() const;
+        std::vector <double> getTime() const;
+        std::vector <double> getPositions() const;
+        std::vector <std::vector <double>> getW() const;
 
         // Get functions
         int get_m() const;
@@ -31,8 +31,8 @@ class HyperbolicSolver{
         void savedata(std::string) const;
     private:
         // Solve functions
-        void solve(float (*)(float), float (*)(float));
-        void setInitialConditions(float (*)(float), float (*)(float));
+        void solve(double (*)(double), double(*)(double));
+        void setInitialConditions(double (*)(double), double(*)(double));
         void matrixMultiplication();
 
         float lambda;
@@ -44,8 +44,8 @@ class HyperbolicSolver{
         float h;
         float k;
 
-        std::vector <std::vector <float>> w;
-        std::vector <float> tiempos;
-        std::vector <float> posiciones;
+        std::vector <std::vector <double>> w;
+        std::vector <double> tiempos;
+        std::vector <double> posiciones;
 
 };
