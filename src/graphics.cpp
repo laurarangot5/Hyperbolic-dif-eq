@@ -12,7 +12,7 @@ namespace plt = matplotlibcpp;
 
 graphics::graphics(const HyperbolicSolver& sol_object): 
                                 sol_object(sol_object){
-                  //plt::backend("TkAgg");
+                  plt::backend("TkAgg");
                                 }
 
 void graphics::plot_slice(short int fix, float value_pos) const{

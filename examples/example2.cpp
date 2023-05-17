@@ -16,14 +16,14 @@ double f(double x){ return p0 * (std::cos(2*x*pi) - 1);}
 double g(double x){ return 0;}
 
 int main(){
-    const HyperbolicSolver example2 ( f, g, 1, 1, 1, 100, 200);
+    const HyperbolicSolver example2 ( f, g, 1, 1, 3.5, 200, 700);
     graphics example2_graphics(example2); 
 
     example2.print_bounds();
     example2.print_y0();
 
-    example2.print_table(TIME, 200);
-    example2_graphics.plot_slice(TIME, 200);
+    example2.print_table(TIME, 400);
+    example2_graphics.plot_slice(TIME, 400);
     example2_graphics.plot_heatmap();
     return 0;
 }
