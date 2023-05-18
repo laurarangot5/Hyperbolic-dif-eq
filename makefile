@@ -1,5 +1,5 @@
 PYTHONFLAGS = -I/usr/include/python3.9 -lpython3.9
-EXAMPLE_FILE = plot
+EXAMPLE_FILE = example0
 
 SRC_DIR := src
 OBJ_DIR := obj
